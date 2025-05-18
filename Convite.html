@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>❤️ Quiz do Amor-Aranha 🕷️</title>
+  <!-- Favicon online (remova se tiver spiderman-favicon.png local) -->
+  <link rel="icon" type="image/png" href="https://img.icons8.com/emoji/48/spider-web.png">
+  <!-- Google Fonts: Bangers (títulos), Roboto (textos) -->
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #e50914, #004aad);
+      font-family: 'Roboto', sans-serif;
+      color: #fff;
+      text-align: center;
+      padding: 40px;
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+      animation: fadeIn 1s ease-in;
+    }
+    /* Fundo de teia (remova se tiver spiderweb-background.jpg) */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/spider-web.png') center/cover;
+      opacity: 0.2;
+      z-index: -1;
+    }
+    /* Partículas animadas */
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .particle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: url('https://img.icons8.com/emoji/16/spider-web.png') no-repeat center;
+      opacity: 0.5;
+      animation: float 10s infinite ease-in-out;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(180deg); }
+    }
+    h1 {
+      font-family: 'Bangers', cursive;
+      font-size: 3em;
+      color: #ffcc00;
+      text-shadow: 2px 2px 4px #e50914, -2px -2px 4px #004aad;
+      margin-bottom: 30px;
+      animation: swing 2s infinite ease-in-out;
+    }
+    .question {
+      margin: 20px auto;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
+      max-width: 600px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      animation: fadeInUp 0.5s ease-in;
+    }
+    .question p {
+      font-size: 1.2em;
+      margin-bottom: 10px;
+      color: #ffcc00;
+    }
+    label {
+      display: flex;
+      align-items: center;
+      margin: 8px 0;
+      font-size: 1em;
+      color: #fff;
+      cursor: pointer;
+    }
+    label input {
+      margin-right: 10px;
+      accent-color: #ffcc00;
+    }
+    button {
+      margin-top: 30px;
+      padding: 12px 30px;
+      font-family: 'Bangers', cursive;
+      font-size: 1.2em;
+      background: #e50914;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    button:hover {
+      background: #ffcc00;
+      color: #e50914;
+      transform: scale(1.1);
+      box-shadow: 0 6px 15px rgba(255, 204, 0, 0.5);
+    }
+    button::before {
+      content: '🕸️';
+      position: absolute;
+      left: -30px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.5em;
+      opacity: 0.3;
+      transition: left 0.3s ease;
+    }
+    button:hover::before {
+      left: 10px;
+    }
+    #popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.9);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(255, 204, 0, 0.5);
+      z-index: 1000;
+      width: 90%;
+      max-width: 400px;
+      border: 2px solid #ffcc00;
+      animation: swingPop 2s infinite ease-in-out;
+    }
+    #popup h2 {
+      font-family: 'Bangers', cursive;
+      color: #ffcc00;
+      font-size: 1.8em;
+      margin: 0 0 15px;
+      text-shadow: 1px 1px 2px #e50914;
+    }
+    #popup p {
+      font-size: 1em;
+      margin: 10px 0;
+      color: #fff;
+    }
+    #popup a {
+      color: #ffcc00;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    #popup a:hover {
+      text-decoration: underline;
+    }
+    #popup button {
+      background: #ffcc00;
+      color: #e50914;
+      padding: 10px 20px;
+      font-size: 1em;
+    }
+    #popup button:hover {
+      background: #e50914;
+      color: #ffcc00;
+    }
+    #popup button::before {
+      content: '\f005'; /* Ícone de estrela do Font Awesome */
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      font-size: 0.8em;
+      margin-right: 5px;
+    }
+    #cronograma {
+      margin: 40px auto;
+      max-width: 600px;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      display: none;
+      animation: fadeInUp 0.5s ease-in;
+    }
+    #cronograma h3 {
+      font-family: 'Bangers', cursive;
+      color: #ffcc00;
+      font-size: 1.8em;
+      margin-bottom: 15px;
+      text-shadow: 1px 1px 2px #e50914;
+    }
+    #cronograma ul {
+      list-style: none;
+      padding: 0;
+    }
+    #cronograma li {
+      margin: 12px 0;
+      font-size: 1em;
+      color: #fff;
+      position: relative;
+      padding-left: 30px;
+    }
+    #cronograma li::before {
+      content: '🕷️';
+      position: absolute;
+      left: 0;
+      font-size: 1.2em;
+    }
+    #cronograma p {
+      font-size: 0.9em;
+      color: #ffcc00;
+      margin-top: 20px;
+    }
+    /* Animações */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes swing {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(3deg); }
+    }
+    @keyframes swingPop {
+      0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+      50% { transform: translate(-50%, -50%) rotate(5deg); }
+    }
+    /* Responsividade */
+    @media (max-width: 600px) {
+      h1 { font-size: 2em; }
+      .question { padding: 15px; max-width: 90%; }
+      .question p { font-size: 1em; }
+      label { font-size: 0.9em; }
+      button { padding: 10px 25px; font-size: 1em; }
+      #popup { padding: 20px; }
+      #popup h2 { font-size: 1.4em; }
+      #popup p { font-size: 0.9em; }
+      #cronograma { padding: 15px; max-width: 90%; }
+      #cronograma h3 { font-size: 1.4em; }
+      #cronograma li { font-size: 0.9em; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Partículas animadas -->
+  <div class="particles">
+    <div class="particle" style="left: 10%; top: 20%; animation-delay: 0s;"></div>
+    <div class="particle" style="left: 30%; top: 50%; animation-delay: 2s;"></div>
+    <div class="particle" style="left: 70%; top: 30%; animation-delay: 4s;"></div>
+    <div class="particle" style="left: 90%; top: 60%; animation-delay: 6s;"></div>
+  </div>
+
+  <h1>Responda e ganhe um convite especial 🕷️❤️</h1>
+
+  <form id="quiz">
+    <div class="question">
+      <p>1. Qual nosso lugar preferido para almoçar/jantar?</p>
+      <label><input type="radio" name="q1" value="a"> a. Parque</label>
+      <label><input type="radio" name="q1" value="b"> b. Casa de mãe</label>
+      <label><input type="radio" name="q1" value="c"> c. Dedo de Prosa</label>
+    </div>
+
+    <div class="question">
+      <p>2. Quando eu te pedi em namoro?</p>
+      <label><input type="radio" name="q2" value="a"> a. 13/02</label>
+      <label><input type="radio" name="q2" value="b"> b. 23/02</label>
+      <label><input type="radio" name="q2" value="c"> c. 10/02</label>
+    </div>
+
+    <div class="question">
+      <p>3. Qual música eu toquei pra você?</p>
+      <label><input type="radio" name="q3" value="a"> a. Quanto mais o tempo passa</label>
+      <label><input type="radio" name="q3" value="b"> b. Bem</label>
+      <label><input type="radio" name="q3" value="c"> c. Entregador de flor</label>
+    </div>
+
+    <button type="button" onclick="verificarRespostas()">Enviar Respostas</button>
+  </form>
+
+  <div id="popup">
+    <h2>🎉 Respostas certas, minha Mary Jane! 🎉</h2>
+    <p>Você topa maratonar Homem-Aranha comigo, amor? 🕷️</p>
+    <p>Você será redirecionada ao WhatsApp em 3 segundos para confirmar! 🕸️🥰</p>
+    <p id="audio-fallback" style="display: none; color: #ffcc00;">Ops, a música não carregou. <a href="https://www.youtube.com/watch?v=OHzqMQB2PfA" target="_blank">Ouça o tema do Homem-Aranha aqui!</a></p>
+    <button onclick="fecharPopup()">Fechar</button>
+  </div>
+
+  <div id="cronograma">
+    <h3>📅 Nosso Cronograma Homem-Aranha 🕷️</h3>
+    <ul>
+      <li>🕸️ Segunda: Homem-Aranha (2002) - Netflix/Disney+</li>
+      <li>🕸️ Terça: Homem-Aranha 2 (2004) - Netflix/Disney+</li>
+      <li>🕸️ Quarta: Homem-Aranha 3 (2007) - Netflix/Disney+</li>
+      <li>🕸️ Quinta: O Espetacular Homem-Aranha (2012) - Disney+</li>
+      <li>🕸️ Sexta: O Espetacular Homem-Aranha 2 (2014) - Disney+</li>
+      <li>🕸️ Sábado: Homem-Aranha: De Volta ao Lar (2017) - Netflix</li>
+      <li>🕸️ Domingo: Homem-Aranha: No Aranhaverso (2018) - Telecine</li>
+      <li>🕸️ Segunda: Homem-Aranha: Longe de Casa (2019) - Disney+</li>
+      <li>🕸️ Terça: Homem-Aranha: Através do Aranhaverso (2023) - Netflix</li>
+      <li>🕸️ Quarta: Homem-Aranha: Sem Volta para Casa (2021) - Netflix</li>
+    </ul>
+    <p>💡 <strong>Dica:</strong> Vamos usar <a href="https://teleparty.com/" target="_blank">Teleparty</a> para sincronizar Netflix/Disney+ e conversar por WhatsApp ou <a href="https://discord.com/" target="_blank">Discord</a>. Te amo! ❤️</p>
+  </div>
+
+  <audio id="spiderSong">
+    <source src="https://cdn.pixabay.com/audio/2023/03/22/03-14-29-759_2.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    function verificarRespostas() {
+      const resposta1 = document.querySelector('input[name="q1"]:checked')?.value;
+      const resposta2 = document.querySelector('input[name="q2"]:checked')?.value;
+      const resposta3 = document.querySelector('input[name="q3"]:checked')?.value;
+      const audio = document.getElementById("spiderSong");
+      const audioFallback = document.getElementById("audio-fallback");
+
+      if (!resposta1 || !resposta2 || !resposta3) {
+        alert("Você precisa responder todas as perguntas, meu amor! 💙");
+        return;
+      }
+
+      if (resposta1 === 'c' && resposta2 === 'b' && resposta3 === 'b') {
+        document.getElementById("popup").style.display = "block";
+        document.getElementById("cronograma").style.display = "block";
+        audio.volume = 0.5;
+        audio.play().catch(error => {
+          console.log('Erro ao tocar áudio:', error);
+          audioFallback.style.display = 'block';
+        });
+        setTimeout(() => {
+          window.location.href = 'https://wa.me/5538988317030?text=Oi,%20eu%20topo%20maratonar%20com%20voc%C3%AA';
+        }, 3000);
+      } else {
+        alert("Hmm... Alguma resposta está errada! Tente de novo, amor 💙");
+      }
+    }
+
+    function fecharPopup() {
+      document.getElementById("popup").style.display = "none";
+      const audio = document.getElementById("spiderSong");
+      audio.pause();
+      audio.currentTime = 0;
+    }
+  </script>
+</body>
+</html>
